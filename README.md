@@ -25,6 +25,8 @@ r1 is the next release and is not made yet. KiCad renders of it, top and bottom:
 | PCB | 165 × 100 mm, 4 layers |
 
 What changed from rosco r2.42 is in the [design notes](design/README.md).
+The [r1 first-order sheet](docs/ORDER_R1.md) links the factory ZIP and check reports for a
+five-board prototype run.
 
 ## Find your way around
 

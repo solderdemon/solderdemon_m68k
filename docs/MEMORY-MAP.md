@@ -1,6 +1,6 @@
 # Memory map
 
-This is the physical 24-bit address map of the through-hole mainboard after startup. The [address decoder PLD](../code/pld/address_decoder/ic2_address_decoder.pld) defines the board-level regions; the [firmware linker script](../code/firmware/rosco_m68k_firmware/rosco_m68k_firmware_1M.ld) and [program linker script](../code/software/libs/src/start_serial/link_scripts/hugerom_rosco_m68k_program.ld) use the same boundaries.
+This is the physical 24-bit address map of the through-hole mainboard after startup. The current [IC2 CPLD source](../code/pld/cpld/ic2_decoder.pld) defines the r1 board-level regions; the [firmware linker script](../code/firmware/rosco_m68k_firmware/rosco_m68k_firmware_1M.ld) and [program linker script](../code/software/libs/src/start_serial/link_scripts/hugerom_rosco_m68k_program.ld) use the same boundaries.
 
 | Address range | Size | Use |
 | --- | ---: | --- |

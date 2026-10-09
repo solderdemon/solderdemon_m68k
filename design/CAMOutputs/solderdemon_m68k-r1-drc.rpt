@@ -1,0 +1,152 @@
+** Drc report for solderdemon_m68k.kicad_pcb **
+** Created on 2026-10-09T09:32:15 **
+** Report includes: Errors, Warnings **
+
+** Found 9 DRC violations **
+[lib_footprint_mismatch]: Footprint 'Crystal_HC49-4H_Vertical' does not match copy in library 'Crystal'
+    Local override; warning
+    @(195.7720 mm, 138.4420 mm): Footprint Q1
+[lib_footprint_mismatch]: Footprint 'DIP-32_W15.24mm_LongPads' does not match copy in library 'Package_DIP'
+    Local override; warning
+    @(159.8000 mm, 111.8236 mm): Footprint U4
+[lib_footprint_mismatch]: Footprint 'DIP-32_W15.24mm_LongPads' does not match copy in library 'Package_DIP'
+    Local override; warning
+    @(135.6000 mm, 111.8236 mm): Footprint U3
+[lib_footprint_mismatch]: Footprint 'DIP-32_W15.24mm_LongPads' does not match copy in library 'Package_DIP'
+    Local override; warning
+    @(111.4000 mm, 111.8236 mm): Footprint U2
+[lib_footprint_mismatch]: Footprint 'PinHeader_2x32_P2.54mm_Vertical' does not match copy in library 'Connector_PinHeader_2.54mm'
+    Local override; warning
+    @(73.3250 mm, 65.3500 mm): Footprint J3
+[lib_footprint_mismatch]: Footprint 'DIP-8_W7.62mm_LongPads' does not match copy in library 'Package_DIP'
+    Local override; warning
+    @(214.2300 mm, 78.7248 mm): Footprint IC15
+[lib_footprint_mismatch]: Footprint 'DIP-32_W15.24mm_LongPads' does not match copy in library 'Package_DIP'
+    Local override; warning
+    @(87.2000 mm, 111.8236 mm): Footprint U1
+[lib_footprint_mismatch]: Footprint 'DIP-16_W7.62mm_LongPads' does not match copy in library 'Package_DIP'
+    Local override; warning
+    @(137.8300 mm, 98.1000 mm): Footprint IC7
+[lib_footprint_mismatch]: Footprint 'PinHeader_1x02_P2.54mm_Vertical' does not match copy in library 'Connector_PinHeader_2.54mm'
+    Local override; warning
+    @(162.8000 mm, 93.1300 mm): Footprint J8
+
+** Found 0 unconnected pads **
+
+** Found 35 Footprint errors **
+[footprint_symbol_field_mismatch]: Field 'Datasheet' differs (PCB: '', Schematic: 'https://github.com/rosco-m68k/hardware-projects/blob/master/datasheets/MC68000UM.pdf')
+    Local override; warning
+    @(126.4000 mm, 73.1000 mm): Footprint IC1
+[footprint_symbol_field_mismatch]: Field 'Datasheet' differs (PCB: '', Schematic: 'http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf')
+    Local override; warning
+    @(121.5000 mm, 98.3000 mm): Footprint Q2
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(133.5000 mm, 94.0000 mm): Footprint R3
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Unpolarized capacitor', Schematic: '')
+    Local override; warning
+    @(189.1160 mm, 138.4430 mm): Footprint C1
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Unpolarized capacitor', Schematic: '')
+    Local override; warning
+    @(207.2400 mm, 138.4430 mm): Footprint C2
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Unpolarized capacitor', Schematic: '')
+    Local override; warning
+    @(206.1700 mm, 102.6000 mm): Footprint C28
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Unpolarized capacitor', Schematic: '')
+    Local override; warning
+    @(175.8000 mm, 71.0000 mm): Footprint C29
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Unpolarized capacitor', Schematic: '')
+    Local override; warning
+    @(82.6660 mm, 62.1820 mm): Footprint C30
+[footprint_symbol_field_mismatch]: Field 'Datasheet' differs (PCB: '', Schematic: 'https://www.maxlinear.com/ds/xr68c681v210.pdf')
+    Local override; warning
+    @(196.6500 mm, 120.9700 mm): Footprint IC4
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Generic connector, single row, 01x06, script generated', Schematic: '')
+    Local override; warning
+    @(228.3000 mm, 108.4480 mm): Footprint J1
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Generic connector, single row, 01x06, script generated', Schematic: '')
+    Local override; warning
+    @(221.5640 mm, 108.4480 mm): Footprint J2
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)', Schematic: '')
+    Local override; warning
+    @(228.3000 mm, 127.5000 mm): Footprint J4
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Jumper, 2-pole, open', Schematic: '')
+    Local override; warning
+    @(228.3000 mm, 92.4290 mm): Footprint JP1
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Jumper, 2-pole, open', Schematic: '')
+    Local override; warning
+    @(221.5640 mm, 92.4290 mm): Footprint JP2
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Two pin crystal', Schematic: '')
+    Local override; warning
+    @(195.7720 mm, 138.4420 mm): Footprint Q1
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Mounting Hole with connection', Schematic: '')
+    Local override; warning
+    @(71.5000 mm, 151.5000 mm): Footprint H1
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Mounting Hole with connection', Schematic: '')
+    Local override; warning
+    @(71.5000 mm, 58.7000 mm): Footprint H2
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Mounting Hole with connection', Schematic: '')
+    Local override; warning
+    @(229.3000 mm, 58.7000 mm): Footprint H3
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Mounting Hole with connection', Schematic: '')
+    Local override; warning
+    @(229.3000 mm, 151.5000 mm): Footprint H4
+[footprint_symbol_field_mismatch]: Field 'Datasheet' differs (PCB: '', Schematic: 'http://www.ti.com/lit/gpn/sn74LS148')
+    Local override; warning
+    @(137.8300 mm, 98.1000 mm): Footprint IC7
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Generic connector, double row, 02x32, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)', Schematic: '')
+    Local override; warning
+    @(73.3250 mm, 65.3500 mm): Footprint J3
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Generic connector, single row, 01x02, script generated', Schematic: '')
+    Local override; warning
+    @(162.8000 mm, 93.1300 mm): Footprint J8
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(101.7000 mm, 73.6281 mm): Footprint R12
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(98.7333 mm, 73.6281 mm): Footprint R15
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(166.7000 mm, 102.6000 mm): Footprint R16
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(95.7667 mm, 73.6281 mm): Footprint R17
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(92.8000 mm, 73.6281 mm): Footprint R18
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(134.9000 mm, 108.4000 mm): Footprint R19
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Jumper, 2-pole, open', Schematic: '')
+    Local override; warning
+    @(109.0180 mm, 92.6630 mm): Footprint JP4
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(134.9000 mm, 104.3240 mm): Footprint R8
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(106.1500 mm, 58.4300 mm): Footprint R21
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Jumper, 2-pole, open', Schematic: '')
+    Local override; warning
+    @(104.7030 mm, 92.6630 mm): Footprint JP3
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Resistor', Schematic: '')
+    Local override; warning
+    @(100.0810 mm, 108.5930 mm): Footprint R11
+[footprint_symbol_field_mismatch]: Field 'Datasheet' differs (PCB: '', Schematic: 'http://ww1.microchip.com/downloads/en/DeviceDoc/25022B.pdf')
+    Local override; warning
+    @(87.2000 mm, 111.8236 mm): Footprint U1
+[footprint_symbol_field_mismatch]: Field 'Datasheet' differs (PCB: '', Schematic: 'http://ww1.microchip.com/downloads/en/DeviceDoc/25022B.pdf')
+    Local override; warning
+    @(111.4000 mm, 111.8236 mm): Footprint U2
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Silkscreen clipped by solder mask
+    - PTH inside courtyard
+    - NPTH inside courtyard
+
+** End of Report **

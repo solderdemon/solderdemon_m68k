@@ -2,6 +2,7 @@
 
 ## Through-hole board
 
+- [r1 first-order sheet](ORDER_R1.md): factory ZIP, board parameters and pre-order checks.
 - [Parts and quantities](BOM.md): bill of materials from the KiCad CSV export.
 - [Jumpers, power, and SD card](JUMPERS.md): JP1 through JP4 and the 5 V SD interface.
 - [J3 expansion pinout](EXPANSION.md): 64-pin header signals and electrical notes.

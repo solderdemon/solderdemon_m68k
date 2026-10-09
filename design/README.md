@@ -9,13 +9,13 @@ This directory contains the SolderDemon m68k through-hole mainboard design, deri
 1. Review the [bill of materials](../docs/BOM.md). Its source is the [KiCad CSV export](kicad/solderdemon_m68k.csv); confirm each footprint and package before ordering.
 2. Read [jumper and power notes](../docs/JUMPERS.md) before applying power or connecting an SD card.
 3. Use the [J3 expansion pinout](../docs/EXPANSION.md) when making an expansion board. **J3** is the expansion connector; **JP3** is the Flash write-enable jumper.
-4. Check the KiCad PCB against [CAM outputs](CAMOutputs/) before fabrication. Regenerate Gerbers and drill files after any design change.
+4. For an r1 PCB order, follow the [first-order sheet](../docs/ORDER_R1.md) and use the [r1 factory ZIP](CAMOutputs/solderdemon_m68k-r1-factory.zip). Its Gerbers and drills are generated from the current board; the [DRC report](CAMOutputs/solderdemon_m68k-r1-drc.rpt), [ERC report](CAMOutputs/solderdemon_m68k-r1-erc.rpt), [schematic PDF](CAMOutputs/solderdemon_m68k-r1-schematic.pdf), and [BOM](CAMOutputs/solderdemon_m68k-r1-bom.csv) are alongside it. Regenerate all of them after any design change.
 
 ## Contents
 
 - **kicad/**: editable schematic sheets, PCB, project, local symbols and footprints, CSV BOM export, and schematic PDF.
 - **tools/**: the scripts that turn r2.13 into r1 (below).
-- **CAMOutputs/**: Gerber layers and drill files.
+- **CAMOutputs/**: current r1 Gerber layers, drill files, first-order ZIP, BOM, PDF, and reports.
 - **docs/**: [BOM, jumper notes, and expansion pinout](../docs/README.md).
 
 ## r1: SolderDemon numbering, the DUART in the CPLD column
@@ -34,6 +34,26 @@ silkscreen (`tools/strip_silk.py`). The CPU decoupling C20/C12/C29/C31 stands in
 opened, and the back carries the SolderDemon identity as on the busboard: the logo, the name and
 "M68K Computer r1" (`tools/r1_identity.py`). All silkscreen text is in KiCad's own font; the
 Futura that r2.x asked for is not installed and made KiCad stop at a message box.
+
+## First r1 prototype order
+
+The r1 board is **165 × 100 mm, four copper layers**. Generate the order package with
+KiCad 10 Python from the repository root:
+
+```sh
+"/c/Program Files/KiCad/10.0/bin/python.exe" design/tools/export_r1.py
+```
+
+The script gates on zero ERC/DRC errors and zero unconnected pads, then replaces the files in
+`design/CAMOutputs/`. Send only `solderdemon_m68k-r1-factory.zip` to the PCB manufacturer;
+it contains the four copper layers, both masks, both silkscreens, outline, and PTH/NPTH drills.
+For the first run, order **five bare PCBs** and populate one after checking the physical fit of
+the three PLCC-44 sockets, JTAG header orientation, and other chosen components. The CSV BOM
+is a design list; choose and verify supplier parts before buying components.
+
+The existing route was improved for `D6` and `A18` with `design/tools/optimize_r1_routes.py`.
+That script accepts a shorter route only when it uses no more vias and KiCad DRC remains clean.
+Run the export script again if any routing or silkscreen changes are made.
 
 ## Revision 2.42: finished CPLD mainboard
 

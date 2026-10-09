@@ -5,16 +5,16 @@
       "Application": "Pcbnew",
       "Version": "10.0.1"
     },
-    "CreationDate": "2026-09-27T19:45:51+03:00"
+    "CreationDate": "2026-10-09T09:32:18+03:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "rosco_m68k",
-      "GUID": "726f7363-6f5f-46d3-9638-6b2e6b696361",
-      "Revision": "2.42"
+      "Name": "solderdemon_m68k",
+      "GUID": "736f6c64-6572-4646-956d-6f6e5f6d3638",
+      "Revision": "r1"
     },
     "Size": {
-      "X": 160.05,
+      "X": 165.05,
       "Y": 100.05
     },
     "LayerNumber": 4,
@@ -41,57 +41,47 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "rosco_m68k-Top.gbr",
+      "Path": "solderdemon_m68k-Top.gtl",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "rosco_m68k-Route2.gbr",
+      "Path": "solderdemon_m68k-Route2.g1",
       "FileFunction": "Copper,L2,Inr",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "rosco_m68k-Route15.gbr",
+      "Path": "solderdemon_m68k-Route15.g2",
       "FileFunction": "Copper,L3,Inr",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "rosco_m68k-Bottom.gbr",
+      "Path": "solderdemon_m68k-Bottom.gbl",
       "FileFunction": "Copper,L4,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "rosco_m68k-F_Paste.gbr",
-      "FileFunction": "SolderPaste,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "rosco_m68k-B_Paste.gbr",
-      "FileFunction": "SolderPaste,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "rosco_m68k-F_Silkscreen.gbr",
+      "Path": "solderdemon_m68k-F_Silkscreen.gto",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "rosco_m68k-B_Silkscreen.gbr",
+      "Path": "solderdemon_m68k-B_Silkscreen.gbo",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "rosco_m68k-F_Mask.gbr",
+      "Path": "solderdemon_m68k-F_Mask.gts",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "rosco_m68k-B_Mask.gbr",
+      "Path": "solderdemon_m68k-B_Mask.gbs",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "rosco_m68k-Edge_Cuts.gbr",
+      "Path": "solderdemon_m68k-Edge_Cuts.gm1",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }

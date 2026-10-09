@@ -1,6 +1,6 @@
 # SolderDemon m68k bill of materials
 
-This table is transcribed from the KiCad CSV export at [solderdemon_m68k.csv](../design/kicad/solderdemon_m68k.csv). It has **30 part lines and 82 component placements**. It is a design BOM, not a verified purchasing list; check the schematic, PCB footprints, and desired assembly options before ordering.
+This table is based on the current r1 [KiCad CSV export](../design/kicad/solderdemon_m68k.csv). It has **30 part lines and 82 component placements**, excluding four mounting holes. The [order-package BOM](../design/CAMOutputs/solderdemon_m68k-r1-bom.csv) is generated from the same schematic. These are design BOMs, not verified purchasing lists; check the schematic, PCB footprints, and chosen supplier parts before buying components.
 
 | Qty | References | Value / part | KiCad footprint |
 | ---: | --- | --- | --- |
