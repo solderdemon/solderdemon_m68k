@@ -30626,8 +30626,8 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "SolderDemon"
-		(at 126.4 57.9 0)
+	(gr_text "SolderDemon m68k"
+		(at 128.4 57.9 0)
 		(layer "F.SilkS")
 		(uuid "8a1d6070-42d1-4cda-8f3e-7257511af3ca")
 		(effects

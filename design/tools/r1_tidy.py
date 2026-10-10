@@ -11,7 +11,7 @@ Run after ceramic_decouplers.py; reconnect the displaced copper with cpld_route.
   4. The revision is a copper mark, as on SolderDemon 6502: "r1" in 2.5 mm copper under the
      mask in the top left corner, between the mounting hole and C30. The silkscreen
      "Revision r1" goes; the copyright line moves to the back under "M68K Computer r1",
-     and "SolderDemon" stands above the CPU on the front, lettered as on the back.
+     and "SolderDemon m68k" stands above the CPU on the front, lettered as on the back.
 """
 from pathlib import Path
 import sys
@@ -124,6 +124,7 @@ def resistors(b):
 
 
 REVISION = 'r1'
+FRONT_NAME = 'SolderDemon m68k'
 REVISION_AT = (80.0, 57.8)                        # top left corner, clear of H2, C30 and the FC0 track
 
 
@@ -148,16 +149,18 @@ def revision_mark(b):
             d.SetVertJustify(pcb.GR_TEXT_V_ALIGN_CENTER)
             d.SetPosition(at(bx, by + 2.8))
     # the name on the front, above the CPU, in the same lettering as on the back
-    if not any(isinstance(d, pcb.PCB_TEXT) and d.GetLayer() == pcb.F_SilkS and d.GetText() == 'SolderDemon'
-               for d in b.GetDrawings()):
-        t = pcb.PCB_TEXT(b)
-        t.SetText('SolderDemon')
-        t.SetLayer(pcb.F_SilkS)
-        t.SetTextSize(pcb.VECTOR2I(pcb.FromMM(2.0), pcb.FromMM(2.0)))
-        t.SetTextThickness(pcb.FromMM(0.4))
-        t.SetHorizJustify(pcb.GR_TEXT_H_ALIGN_CENTER)
-        t.SetVertJustify(pcb.GR_TEXT_V_ALIGN_CENTER)
-        t.SetPosition(pcb.VECTOR2I(ic1.GetPosition().x, pcb.FromMM(57.9)))
+    front = [d for d in b.GetDrawings() if isinstance(d, pcb.PCB_TEXT) and d.GetLayer() == pcb.F_SilkS
+             and d.GetText() in (FRONT_NAME, 'SolderDemon')]
+    t = front[0] if front else pcb.PCB_TEXT(b)
+    t.SetText(FRONT_NAME)
+    t.SetLayer(pcb.F_SilkS)
+    t.SetTextSize(pcb.VECTOR2I(pcb.FromMM(2.0), pcb.FromMM(2.0)))
+    t.SetTextThickness(pcb.FromMM(0.4))
+    t.SetHorizJustify(pcb.GR_TEXT_H_ALIGN_CENTER)
+    t.SetVertJustify(pcb.GR_TEXT_V_ALIGN_CENTER)
+    # 2 mm right of the CPU's centre line, so the name clears R21 on the left
+    t.SetPosition(pcb.VECTOR2I(ic1.GetPosition().x + pcb.FromMM(2.0), pcb.FromMM(57.9)))
+    if not front:
         b.Add(t)
     if not any(isinstance(d, pcb.PCB_TEXT) and d.IsOnCopperLayer() and d.GetText() == REVISION
                for d in b.GetDrawings()):
