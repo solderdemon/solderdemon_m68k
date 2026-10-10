@@ -101,6 +101,9 @@ python design/tools/make_logo.py 17                    # 18. SolderDemon logo fo
 "$K/python.exe" design/tools/cpld_route.py             # 23. reconnect copper displaced by larger caps
 "$K/python.exe" design/tools/trim_stubs.py             # 24. trim router overshoots
 "$K/python.exe" design/tools/cpld_route.py             # 25. reconnect any net opened by trimming
+"$K/python.exe" design/tools/r1_tidy.py                 # 26. LED caps upright, jumper block centred, resistor labels inside
+"$K/python.exe" design/tools/cpld_route.py             # 27. reconnect the copper the tidy-up displaced
+"$K/python.exe" design/tools/trim_stubs.py             # 28. trim router overshoots
 "$K/kicad-cli.exe" pcb drc --schematic-parity design/kicad/solderdemon_m68k.kicad_pcb
 ```
 
@@ -112,6 +115,13 @@ silkscreen outline; the outline opens around the leads so it does not print acro
 pads. The fabrication and courtyard layers retain the maximum body dimensions of KEMET
 C322C104K5R5TA as a reference; verify the selected
 yellow capacitor against it before ordering. Generate the CAM package again after the final DRC.
+
+`r1_tidy.py` is the last placement step. It stands C6 and C32 upright on the LED centre line,
+C32 halfway between LED1 and LED2 and C6 the same distance to the left; puts C17, the
+"Jumper Settings" frame and C8 on one centre line halfway between the CPU's pin row and the
+ROM frames, with equal gaps between them; and centres every 0207 resistor reference inside its
+body outline. The copper-to-edge rule in `solderdemon_m68k.kicad_pro` is 0.3 mm, so the inner
+GND and VCC planes stop 0.3 mm short of the routed outline.
 
 Steps 5, 9 and 11 use [KiCadRoutingTools](https://github.com/drandyhaas/KiCadRoutingTools) from the
 workspace's `tools/KiCadRoutingTools` (set `KRT` to use another clone); its logs go to

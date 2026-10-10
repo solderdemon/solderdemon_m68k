@@ -1,5 +1,5 @@
 Drill report for solderdemon_m68k.kicad_pcb
-Created on 2026-10-10T21:19:24
+Created on 2026-10-10T22:00:58
 
 Copper Layer Stackup:
     =============================================================
@@ -12,15 +12,15 @@ Copper Layer Stackup:
 Drill file 'solderdemon_m68k-PTH.drl' contains
     plated through holes:
     =============================================================
-    T1  0.300mm  0.0118"  (434 holes))
-    T2  0.400mm  0.0157"  (149 holes))
+    T1  0.300mm  0.0118"  (464 holes))
+    T2  0.400mm  0.0157"  (144 holes))
     T3  0.800mm  0.0315"  (336 holes))
     T4  0.813mm  0.0320"  (136 holes))
     T5  1.000mm  0.0394"  (76 holes))
     T6  1.016mm  0.0400"  (32 holes))
     T7  3.200mm  0.1260"  (4 holes))
 
-    Total plated holes count 1167
+    Total plated holes count 1192
 
 
 Drill file 'solderdemon_m68k-NPTH.drl' contains

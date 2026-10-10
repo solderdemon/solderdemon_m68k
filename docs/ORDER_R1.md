@@ -20,7 +20,7 @@ copper layers, outline, masks, both legends and plated holes before submitting t
 The [ERC report](../design/CAMOutputs/solderdemon_m68k-r1-erc.rpt) has zero errors. The
 [DRC report](../design/CAMOutputs/solderdemon_m68k-r1-drc.rpt) has zero errors and zero
 unconnected pads; its warnings are library footprint and schematic field differences. The
-[drill report](../design/CAMOutputs/solderdemon_m68k-r1-drill-report.txt) lists 1,167 plated
+[drill report](../design/CAMOutputs/solderdemon_m68k-r1-drill-report.txt) lists 1,192 plated
 holes. The factory ZIP was regenerated after replacing all 23 through-hole 100 nF capacitors
 with 5.08 mm lead-pitch footprints, rerouting the board and pulling the inner GND and VCC
 planes back to 0.3 mm from the board edge (the `.kicad_pro` copper-to-edge rule is 0.3 mm).
