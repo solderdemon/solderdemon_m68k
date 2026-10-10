@@ -2,6 +2,15 @@
 
 > This pinout describes the **J3 expansion connector**. Check the schematic before using it with another board revision. **JP3 is a separate Flash write-enable jumper**, not this connector.
 
+## Mounting in the SolderDemon bus board
+
+J3 is laid out as a vertical 2×32 pin header, which suits a 64-way IDC ribbon cable to the
+[bus board](https://github.com/solderdemon/solderdemon_m68k-busboard). To stand the board
+directly in the bus board's `BUS1` slot (component side facing outwards), fit a **right-angle
+2×32 socket on the bottom side** of the board in the same J3 holes, with the socket body
+overhanging the left board edge. The socket has to go on the bottom side: mounted on the top
+side the pin order along the row is reversed and nothing lines up. No PCB change is needed.
+
 J3 provides peripheral access to the full address, data and control buses in the system,
 plus VCC (5V) and GND. These signals are unbuffered and have no built-in protection, so are
 not suitable for direct use as a bus, but could be made so with a relatively simple
