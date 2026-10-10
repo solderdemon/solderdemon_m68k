@@ -30050,7 +30050,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "ff870511-3a90-49f1-9990-5aec7ad35822")
+		(uuid "63a30107-e64a-4f1f-b117-b90cb84b149e")
 	)
 	(gr_line
 		(start 111.4412 101.7272)
@@ -30060,7 +30060,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "63a30107-e64a-4f1f-b117-b90cb84b149e")
+		(uuid "ff870511-3a90-49f1-9990-5aec7ad35822")
 	)
 	(gr_line
 		(start 219.821 89.009)
@@ -30265,6 +30265,17 @@
 		)
 		(layer "Edge.Cuts")
 		(uuid "58eb1f49-1e5e-4c0c-97da-fb971f13fe25")
+	)
+	(gr_text "r1"
+		(at 80 57.8 0)
+		(layer "F.Cu")
+		(uuid "d7d8c2fb-b9b6-48db-b701-c37171dc0e05")
+		(effects
+			(font
+				(size 2.5 2.5)
+				(thickness 0.6)
+			)
+		)
 	)
 	(gr_text "UART VCC"
 		(at 231.31114 95.324 90)
@@ -30544,7 +30555,7 @@
 		)
 	)
 	(gr_text "Copyright ©2019-2026"
-		(at 76.57 58.05 0)
+		(at 126.4 58.05 0)
 		(layer "F.SilkS")
 		(uuid "00000000-0000-0000-0000-0000dd4fe000")
 		(effects
@@ -30552,19 +30563,7 @@
 				(size 1.15 1.15)
 				(thickness 0.15)
 			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "Revision r1"
-		(at 137.59 58.049221 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-000061dc6c9d")
-		(effects
-			(font
-				(size 1.35 1.35)
-				(thickness 0.134112)
-			)
-			(justify left bottom)
+			(justify bottom)
 		)
 	)
 	(gr_text "63"

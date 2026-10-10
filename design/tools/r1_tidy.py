@@ -8,6 +8,9 @@ Run after ceramic_decouplers.py; reconnect the displaced copper with cpld_route.
      bottom of the CPU's pin row and the top of the ROM frames, with equal gaps between
      the three; the frame is widened so its caption clears the jumpers.
   3. Every 0207 resistor carries its reference centred inside the body outline.
+  4. The revision is a copper mark, as on SolderDemon 6502: "r1" in 2.5 mm copper under the
+     mask in the top left corner, between the mounting hole and C30. The silkscreen
+     "Revision r1" goes, and the copyright line takes its place, centred above the CPU.
 """
 from pathlib import Path
 import sys
@@ -61,7 +64,7 @@ def jumper_block(b):
     cy = (top + bottom) / 2
     c17, c8, jp3, jp4 = (cb.find(b, r) for r in ('C17', 'C8', 'JP3', 'JP4'))
     frame = [d for d in b.GetDrawings() if d.GetLayer() == pcb.F_SilkS and d.GetClass() == 'PCB_SHAPE'
-             and d.GetShapeStr() == 'Line' and 92 < mm(d.GetStart().x) < 112 and 86 < mm(d.GetStart().y) < 97]
+             and d.GetShapeStr() == 'Line' and 90 < mm(d.GetStart().x) < 113 and 86 < mm(d.GetStart().y) < 104]
     assert len(frame) == 4, f'expected the 4 lines of the jumper frame, found {len(frame)}'
     heading = [d for d in b.GetDrawings() if isinstance(d, pcb.PCB_TEXT) and d.GetText().strip() == 'Jumper Settings']
     caption = [d for d in b.GetDrawings() if isinstance(d, pcb.PCB_TEXT) and d.GetText().strip() == 'See\nDocumentation']
@@ -119,10 +122,43 @@ def resistors(b):
     print(f'{n} resistor references centred')
 
 
+REVISION = 'r1'
+REVISION_AT = (80.0, 57.8)                        # top left corner, clear of H2, C30 and the FC0 track
+
+
+def revision_mark(b):
+    gone = [d for d in b.GetDrawings() if isinstance(d, pcb.PCB_TEXT)
+            and d.GetText().strip() == f'Revision {REVISION}']
+    for d in gone:
+        cb.remove(b, d)
+    ic1 = cb.find(b, 'IC1')
+    for d in b.GetDrawings():
+        if isinstance(d, pcb.PCB_TEXT) and d.GetText().startswith('Copyright'):
+            d.SetHorizJustify(pcb.GR_TEXT_H_ALIGN_CENTER)
+            d.SetPosition(pcb.VECTOR2I(ic1.GetPosition().x, d.GetPosition().y))
+    if not any(isinstance(d, pcb.PCB_TEXT) and d.IsOnCopperLayer() and d.GetText() == REVISION
+               for d in b.GetDrawings()):
+        t = pcb.PCB_TEXT(b)
+        t.SetText(REVISION)
+        t.SetLayer(pcb.F_Cu)
+        t.SetTextSize(pcb.VECTOR2I(pcb.FromMM(2.5), pcb.FromMM(2.5)))
+        t.SetTextThickness(pcb.FromMM(0.6))
+        t.SetHorizJustify(pcb.GR_TEXT_H_ALIGN_CENTER)
+        t.SetVertJustify(pcb.GR_TEXT_V_ALIGN_CENTER)
+        t.SetPosition(at(*REVISION_AT))
+        b.Add(t)
+    print(f'revision mark: copper "{REVISION}" at {REVISION_AT}; {len(gone)} silkscreen revision texts removed')
+
+
 def main():
     b = pcb.LoadBoard(str(cb.BOARD))
-    moved = leds(b) + jumper_block(b)
+    before = {fp.GetReference(): (fp.GetPosition(), fp.GetOrientationDegrees()) for fp in b.GetFootprints()}
+    touched = leds(b) + jumper_block(b)
     resistors(b)
+    revision_mark(b)
+    # Only a part that actually moved may tear copper up: rip_collisions asks 0.2 mm around a
+    # pad, the router lays tracks at 0.1524, so a second run would otherwise rip routed tracks.
+    moved = [fp for fp in touched if before[fp.GetReference()] != (fp.GetPosition(), fp.GetOrientationDegrees())]
     nets, count = cb.rip_collisions(b, moved)
     pcb.ZONE_FILLER(b).Fill(b.Zones())
     cb.save(b)
