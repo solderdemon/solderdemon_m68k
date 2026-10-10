@@ -121,8 +121,9 @@ C32 halfway between LED1 and LED2 and C6 the same distance to the left; puts C17
 "Jumper Settings" frame and C8 on one centre line halfway between the CPU's pin row and the
 ROM frames, with equal gaps between them; centres every 0207 resistor reference inside its
 body outline; and marks the revision the SolderDemon 6502 way, as 2.5 mm copper "r1" under the
-mask in the top left corner, with the copyright line centred above the CPU in place of the old
-silkscreen "Revision r1". The copper-to-edge rule in `solderdemon_m68k.kicad_pro` is 0.3 mm, so the inner
+mask in the top left corner. The silkscreen "Revision r1" goes; the copyright line moves to the
+back under "M68K Computer r1", and "SolderDemon" stands above the CPU on the front, lettered as
+on the back. The copper-to-edge rule in `solderdemon_m68k.kicad_pro` is 0.3 mm, so the inner
 GND and VCC planes stop 0.3 mm short of the routed outline.
 
 Steps 5, 9 and 11 use [KiCadRoutingTools](https://github.com/drandyhaas/KiCadRoutingTools) from the

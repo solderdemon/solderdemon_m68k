@@ -10,7 +10,8 @@ Run after ceramic_decouplers.py; reconnect the displaced copper with cpld_route.
   3. Every 0207 resistor carries its reference centred inside the body outline.
   4. The revision is a copper mark, as on SolderDemon 6502: "r1" in 2.5 mm copper under the
      mask in the top left corner, between the mounting hole and C30. The silkscreen
-     "Revision r1" goes, and the copyright line takes its place, centred above the CPU.
+     "Revision r1" goes; the copyright line moves to the back under "M68K Computer r1",
+     and "SolderDemon" stands above the CPU on the front, lettered as on the back.
 """
 from pathlib import Path
 import sys
@@ -132,10 +133,32 @@ def revision_mark(b):
     for d in gone:
         cb.remove(b, d)
     ic1 = cb.find(b, 'IC1')
+    back = [d for d in b.GetDrawings() if isinstance(d, pcb.PCB_TEXT) and d.GetLayer() == pcb.B_SilkS
+            and d.GetText() == 'M68K Computer r1']
+    assert len(back) == 1, 'expected the "M68K Computer r1" line on the back'
+    bx, by = mm(back[0].GetPosition().x), mm(back[0].GetPosition().y)
     for d in b.GetDrawings():
         if isinstance(d, pcb.PCB_TEXT) and d.GetText().startswith('Copyright'):
+            # the copyright goes to the back, under the SolderDemon lines
+            d.SetLayer(pcb.B_SilkS)
+            d.SetMirrored(True)
+            d.SetTextSize(pcb.VECTOR2I(pcb.FromMM(1.0), pcb.FromMM(1.0)))
+            d.SetTextThickness(pcb.FromMM(0.15))
             d.SetHorizJustify(pcb.GR_TEXT_H_ALIGN_CENTER)
-            d.SetPosition(pcb.VECTOR2I(ic1.GetPosition().x, d.GetPosition().y))
+            d.SetVertJustify(pcb.GR_TEXT_V_ALIGN_CENTER)
+            d.SetPosition(at(bx, by + 2.8))
+    # the name on the front, above the CPU, in the same lettering as on the back
+    if not any(isinstance(d, pcb.PCB_TEXT) and d.GetLayer() == pcb.F_SilkS and d.GetText() == 'SolderDemon'
+               for d in b.GetDrawings()):
+        t = pcb.PCB_TEXT(b)
+        t.SetText('SolderDemon')
+        t.SetLayer(pcb.F_SilkS)
+        t.SetTextSize(pcb.VECTOR2I(pcb.FromMM(2.0), pcb.FromMM(2.0)))
+        t.SetTextThickness(pcb.FromMM(0.4))
+        t.SetHorizJustify(pcb.GR_TEXT_H_ALIGN_CENTER)
+        t.SetVertJustify(pcb.GR_TEXT_V_ALIGN_CENTER)
+        t.SetPosition(pcb.VECTOR2I(ic1.GetPosition().x, pcb.FromMM(57.9)))
+        b.Add(t)
     if not any(isinstance(d, pcb.PCB_TEXT) and d.IsOnCopperLayer() and d.GetText() == REVISION
                for d in b.GetDrawings()):
         t = pcb.PCB_TEXT(b)

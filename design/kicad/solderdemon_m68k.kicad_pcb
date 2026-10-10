@@ -30050,7 +30050,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "63a30107-e64a-4f1f-b117-b90cb84b149e")
+		(uuid "ff870511-3a90-49f1-9990-5aec7ad35822")
 	)
 	(gr_line
 		(start 111.4412 101.7272)
@@ -30060,7 +30060,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "ff870511-3a90-49f1-9990-5aec7ad35822")
+		(uuid "63a30107-e64a-4f1f-b117-b90cb84b149e")
 	)
 	(gr_line
 		(start 219.821 89.009)
@@ -30554,18 +30554,6 @@
 			)
 		)
 	)
-	(gr_text "Copyright ©2019-2026"
-		(at 126.4 58.05 0)
-		(layer "F.SilkS")
-		(uuid "00000000-0000-0000-0000-0000dd4fe000")
-		(effects
-			(font
-				(size 1.15 1.15)
-				(thickness 0.15)
-			)
-			(justify bottom)
-		)
-	)
 	(gr_text "63"
 		(at 68.225 145.275 0)
 		(layer "F.SilkS")
@@ -30638,6 +30626,17 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "SolderDemon"
+		(at 126.4 57.9 0)
+		(layer "F.SilkS")
+		(uuid "8a1d6070-42d1-4cda-8f3e-7257511af3ca")
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.4)
+			)
+		)
+	)
 	(gr_text "ODD\nROM"
 		(at 94.8 123.542623 0)
 		(layer "F.SilkS")
@@ -30690,6 +30689,18 @@
 		(at 121 74.8 0)
 		(layer "B.SilkS")
 		(uuid "aa688ffa-b3eb-421c-bfab-9623597ab754")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(gr_text "Copyright ©2019-2026"
+		(at 121 77.6 0)
+		(layer "B.SilkS")
+		(uuid "00000000-0000-0000-0000-0000dd4fe000")
 		(effects
 			(font
 				(size 1 1)
