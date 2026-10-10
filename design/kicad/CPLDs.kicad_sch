@@ -4351,7 +4351,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rosco_m68k:C2.5-3"
+		(property "Footprint" "rosco_m68k:C_Radial_5.08mm"
 			(at 30.48 162.56 0)
 			(effects
 				(font
@@ -4548,7 +4548,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rosco_m68k:C2.5-3"
+		(property "Footprint" "rosco_m68k:C_Radial_5.08mm"
 			(at 45.72 162.56 0)
 			(effects
 				(font
@@ -4745,7 +4745,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rosco_m68k:C2.5-3"
+		(property "Footprint" "rosco_m68k:C_Radial_5.08mm"
 			(at 60.96 162.56 0)
 			(effects
 				(font
@@ -4942,7 +4942,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rosco_m68k:C2.5-3"
+		(property "Footprint" "rosco_m68k:C_Radial_5.08mm"
 			(at 76.2 162.56 0)
 			(effects
 				(font
@@ -5139,7 +5139,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rosco_m68k:C2.5-3"
+		(property "Footprint" "rosco_m68k:C_Radial_5.08mm"
 			(at 91.44 162.56 0)
 			(effects
 				(font
@@ -5336,7 +5336,7 @@
 				)
 			)
 		)
-		(property "Footprint" "rosco_m68k:C2.5-3"
+		(property "Footprint" "rosco_m68k:C_Radial_5.08mm"
 			(at 106.68 162.56 0)
 			(effects
 				(font

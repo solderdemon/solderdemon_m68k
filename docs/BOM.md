@@ -7,7 +7,7 @@ This table is based on the current r1 [KiCad CSV export](../design/kicad/solderd
 | 1 | S1 | 10-XX | B3F-10XX |
 | 2 | R19,R11 | 10K | 0207_10 |
 | 2 | C1,C2 | 7pF | C2.5_or_3.5-3 |
-| 23 | C7,C8,C9,C20,C23,C24,C22,C26,C13,C27,C28,C30,C31,C6,C25,C29,C12,C10,C5,C4,C3,C32,C33 | 100nF | C2.5-3 |
+| 23 | C7,C8,C9,C20,C23,C24,C22,C26,C13,C27,C28,C30,C31,C6,C25,C29,C12,C10,C5,C4,C3,C32,C33 | 100nF | C_Radial_5.08mm |
 | 7 | C16,C17,C18,C19,C14,C15,C11 | 100uF | E2,5-5 |
 | 1 | C21 | 470uF | E3,5-10 |
 | 1 | IC4 | XR68C681CJTR-F | PLCC-44_THT-Socket |
@@ -43,3 +43,9 @@ This table is based on the current r1 [KiCad CSV export](../design/kicad/solderd
 - The older packing list differs from this KiCad CSV for some headers (including J8). This table follows the CSV; inspect the current PCB before ordering those headers.
 
 The source CSV has no supplier or manufacturer part numbers. Package names in this table are KiCad footprint identifiers, not vendor order codes.
+
+The 23 through-hole 100 nF parts now have a **5.08 mm lead pitch**. The custom footprint uses a
+5.08 × 3.18 mm maximum body outline, based on [KEMET C322C104K5R5TA](https://search.kemet.com/component-documentation/download/specsheet/C322C104K5R5TA)
+(X7R, 50 V, ±10%). This is a dimensional reference, not a purchase commitment: confirm the
+body size, lead diameter, lead pitch and colour of the actual part before ordering. C13 is the
+555 control-voltage capacitor; the other 100 nF parts are supply decouplers.

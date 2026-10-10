@@ -97,8 +97,21 @@ python design/tools/make_logo.py 17                    # 18. SolderDemon logo fo
 "$K/python.exe" design/tools/r1_identity.py            # 19. CPU decoupling column, SolderDemon identity on the back
 "$K/python.exe" design/tools/cpld_route.py             # 20. route what the column tore up
 "$K/python.exe" design/tools/trim_stubs.py             # 21. and trim again
+"$K/python.exe" design/tools/ceramic_decouplers.py      # 22. 23 radial ceramic 100 nF, 5.08 mm pitch
+"$K/python.exe" design/tools/cpld_route.py             # 23. reconnect copper displaced by larger caps
+"$K/python.exe" design/tools/trim_stubs.py             # 24. trim router overshoots
+"$K/python.exe" design/tools/cpld_route.py             # 25. reconnect any net opened by trimming
 "$K/kicad-cli.exe" pcb drc --schematic-parity design/kicad/solderdemon_m68k.kicad_pcb
 ```
+
+The 5.08 mm capacitor conversion is the current r1 layout. It updates the footprint fields in
+the older hand-drawn sheets, replaces all 23 board footprints while keeping each VCC pad close
+to its original position, and moves parts locally to leave at least 0.5 mm between courtyards
+or imported package outlines. Each reference is centred inside a compact 4.4 x 2.6 mm
+silkscreen outline; the outline opens around the leads so it does not print across the solder
+pads. The fabrication and courtyard layers retain the maximum body dimensions of KEMET
+C322C104K5R5TA as a reference; verify the selected
+yellow capacitor against it before ordering. Generate the CAM package again after the final DRC.
 
 Steps 5, 9 and 11 use [KiCadRoutingTools](https://github.com/drandyhaas/KiCadRoutingTools) from the
 workspace's `tools/KiCadRoutingTools` (set `KRT` to use another clone); its logs go to

@@ -1,6 +1,6 @@
 "Refs","Value","Footprint","Qty","DNP"
 "C1,C2","7pF","rosco_m68k:C2.5_or_3.5-3","2",""
-"C3-C10,C12,C13,C20,C22-C33","100nF","rosco_m68k:C2.5-3","23",""
+"C3-C10,C12,C13,C20,C22-C33","100nF","rosco_m68k:C_Radial_5.08mm","23",""
 "C11,C14-C19","100uF","rosco_m68k:E2,5-5","7",""
 "C21","470uF","rosco_m68k:E3,5-10","1",""
 "H1-H4","MountingHole","MountingHole:MountingHole_3.2mm_M3_Pad","4",""

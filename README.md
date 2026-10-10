@@ -10,6 +10,10 @@ The mainboard is built on [rosco_m68k](https://github.com/rosco-m68k/rosco_m68k)
 
 r1 is the next release and is not made yet. KiCad renders of it, top and bottom:
 
+The current PCB and factory files use 23 radial ceramic 100 nF capacitors with 5.08 mm
+lead spacing. The renders below predate that footprint change; use the current KiCad board
+for placement and hole positions.
+
 <p>
   <img src="images/r1-render-top.png" alt="SolderDemon m68k r1, top side, KiCad render" width="49%">
   <img src="images/r1-render-bottom.png" alt="SolderDemon m68k r1, bottom side with the SolderDemon identity, KiCad render" width="49%">
