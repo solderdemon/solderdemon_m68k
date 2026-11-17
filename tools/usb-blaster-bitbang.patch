@@ -1,0 +1,97 @@
+diff --git a/src/jtag/drivers/usb_blaster/usb_blaster.c b/src/jtag/drivers/usb_blaster/usb_blaster.c
+index 8c37048..04fcb4b 100644
+--- a/src/jtag/drivers/usb_blaster/usb_blaster.c
++++ b/src/jtag/drivers/usb_blaster/usb_blaster.c
+@@ -600,78 +600,25 @@ static int ublast_read_bitbang_tdos(uint8_t *buf, int nb_bits)
+  */
+ static void ublast_queue_tdi(uint8_t *bits, int nb_bits, enum scan_type scan)
+ {
+-	int nb8 = nb_bits / 8;
+-	int nb1 = nb_bits % 8;
+-	int nbfree_in_packet, i, trans = 0, read_tdos;
+-	uint8_t *tdos = calloc(1, nb_bits / 8 + 1);
+-	static uint8_t byte0[BUF_LEN];
+-
+-	/*
+-	 * As the last TDI bit should always be output in bitbang mode in order
+-	 * to activate the TMS=1 transition to EXIT_?R state. Therefore a
+-	 * situation where nb_bits is a multiple of 8 is handled as follows:
+-	 * - the number of TDI shifted out in "byteshift mode" is 8 less than
+-	 *   nb_bits
+-	 * - nb1 = 8
+-	 * This ensures that nb1 is never 0, and allows the TMS transition.
+-	 */
+-	if (nb8 > 0 && nb1 == 0) {
+-		nb8--;
+-		nb1 = 8;
+-	}
+-
+-	read_tdos = (scan == SCAN_IN || scan == SCAN_IO);
+-	for (i = 0; i < nb8; i += trans) {
+-		/*
+-		 * Calculate number of bytes to fill USB packet of size MAX_PACKET_SIZE
+-		 */
+-		nbfree_in_packet = (MAX_PACKET_SIZE - (info.bufidx%MAX_PACKET_SIZE));
+-		trans = MIN(nbfree_in_packet - 1, nb8 - i);
+-
+-		/*
+-		 * Queue a byte-shift mode transmission, with as many bytes as
+-		 * is possible with regard to :
+-		 *  - current filling level of write buffer
+-		 *  - remaining bytes to write in byte-shift mode
+-		 */
+-		if (read_tdos)
+-			ublast_queue_byte(SHMODE | READ | trans);
+-		else
+-			ublast_queue_byte(SHMODE | trans);
+-		if (bits)
+-			ublast_queue_bytes(&bits[i], trans);
+-		else
+-			ublast_queue_bytes(byte0, trans);
+-		if (read_tdos) {
+-			if (info.flags & COPY_TDO_BUFFER)
+-				ublast_queue_byte(CMD_COPY_TDO_BUFFER);
+-			ublast_read_byteshifted_tdos(&tdos[i], trans);
++	uint8_t *tdos = calloc(1, (nb_bits + 7) / 8 + 1);
++	int read_tdos = (scan == SCAN_IN || scan == SCAN_IO);
++	for (int base = 0; base < nb_bits; base += 8) {
++		int count = MIN(8, nb_bits - base);
++		for (int i = 0; i < count; i++) {
++			int n = base + i;
++			int tdi = bits ? (bits[n / 8] >> (n % 8)) & 1 : 0;
++			if (bits && n == nb_bits - 1)
++				ublast_clock_tdi_flip_tms(tdi, scan);
++			else
++				ublast_clock_tdi(tdi, scan);
+ 		}
++		if (read_tdos)
++			ublast_read_bitbang_tdos(&tdos[base / 8], count);
+ 	}
+-
+-	/*
+-	 * Queue the remaining TDI bits in bitbang mode.
+-	 */
+-	for (i = 0; i < nb1; i++) {
+-		int tdi = bits ? bits[nb8 + i / 8] & (1 << i) : 0;
+-		if (bits && i == nb1 - 1)
+-			ublast_clock_tdi_flip_tms(tdi, scan);
+-		else
+-			ublast_clock_tdi(tdi, scan);
+-	}
+-	if (nb1 && read_tdos) {
+-		if (info.flags & COPY_TDO_BUFFER)
+-			ublast_queue_byte(CMD_COPY_TDO_BUFFER);
+-		ublast_read_bitbang_tdos(&tdos[nb8], nb1);
+-	}
+-
+ 	if (bits)
+ 		memcpy(bits, tdos, DIV_ROUND_UP(nb_bits, 8));
+ 	free(tdos);
+ 
+-	/*
+-	 * Ensure clock is in lower state
+-	 */
+ 	ublast_idle_clock();
+ }
+ 
+

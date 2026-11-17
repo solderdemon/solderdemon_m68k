@@ -60,6 +60,8 @@ After validation, run `python3 tools/package_cpld.py` from the mainboard directo
 
 ## Programming
 
+For Linux and USB-Blaster, see the [ATF1502AS programming guide](../../../../docs/USB_BLASTER_ATF1502_PROGRAMMING.md).
+
 For a standalone PLCC-44 breakout and USB-Blaster, see the
 [step-by-step programming and chip-check note](PROGRAMMING.md).
 
