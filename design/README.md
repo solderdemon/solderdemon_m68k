@@ -1,22 +1,22 @@
 # SolderDemon m68k through-hole mainboard design
 
-![Assembled r2.42 mainboard, the GAL version this board grew from](../images/mainboard-r2.42.jpg)
+![Assembled SolderDemon m68k r1 mainboard](../images/mainboard-r1.jpg)
 
-This directory contains the SolderDemon m68k through-hole mainboard design, derived from the original [rosco_m68k](https://github.com/rosco-m68k/rosco_m68k) board. Open the [KiCad project](kicad/solderdemon_m68k.kicad_pro) to inspect the board. The schematics are split into CPU, memory, CPLDs, DUART, reset, and expansion sheets. A [schematic PDF](kicad/solderdemon_m68k.pdf) is included for quick reading.
+This directory contains the SolderDemon m68k through-hole mainboard design, derived from the original [rosco_m68k](https://github.com/rosco-m68k/rosco_m68k) board. Open the [KiCad project](solderdemon_m68k.kicad_pro) to inspect the board. The schematics are split into CPU, memory, CPLDs, DUART, reset, and expansion sheets. A [schematic PDF](solderdemon_m68k.pdf) is included for quick reading.
 
 ## Build references
 
-1. Review the [bill of materials](../docs/BOM.md). Its source is the [KiCad CSV export](kicad/solderdemon_m68k.csv); confirm each footprint and package before ordering.
+1. Review the [bill of materials](../docs/BOM.md). Its source is the [KiCad CSV export](solderdemon_m68k.csv); confirm each footprint and package before ordering.
 2. Read [jumper and power notes](../docs/JUMPERS.md) before applying power or connecting an SD card.
 3. Use the [J3 expansion pinout](../docs/EXPANSION.md) when making an expansion board. **J3** is the expansion connector; **JP3** is the Flash write-enable jumper.
-4. For an r1 PCB order, follow the [first-order sheet](../docs/ORDER_R1.md) and use the [r1 factory ZIP](CAMOutputs/solderdemon_m68k-r1-factory.zip). Its Gerbers and drills are generated from the current board; the [DRC report](CAMOutputs/solderdemon_m68k-r1-drc.rpt), [ERC report](CAMOutputs/solderdemon_m68k-r1-erc.rpt), [schematic PDF](CAMOutputs/solderdemon_m68k-r1-schematic.pdf), and [BOM](CAMOutputs/solderdemon_m68k-r1-bom.csv) are alongside it. Regenerate all of them after any design change.
+4. For an r1 PCB order, follow the [first-order sheet](../docs/ORDER_R1.md) and use the [r1 factory ZIP](../manufacturing/solderdemon_m68k-r1-factory.zip). Its Gerbers and drills are generated from the current board; the [DRC report](../manufacturing/solderdemon_m68k-r1-drc.rpt), [ERC report](../manufacturing/solderdemon_m68k-r1-erc.rpt), [schematic PDF](../manufacturing/solderdemon_m68k-r1-schematic.pdf), and [BOM](../manufacturing/solderdemon_m68k-r1-bom.csv) are alongside it. Regenerate all of them after any design change.
 
 ## Contents
 
-- **kicad/**: editable schematic sheets, PCB, project, local symbols and footprints, CSV BOM export, and schematic PDF.
-- **tools/**: the scripts that turn r2.13 into r1 (below).
-- **CAMOutputs/**: current r1 Gerber layers, drill files, first-order ZIP, BOM, PDF, and reports.
-- **docs/**: [BOM, jumper notes, and expansion pinout](../docs/README.md).
+- Schematic sheets, PCB, project, local symbols and footprints are directly in this directory.
+- [`../tools/`](../tools/): design generators, simulations and exports.
+- [`../manufacturing/`](../manufacturing/): Gerbers, drills, fabrication ZIP, BOM, PDF and reports.
+- [`../docs/`](../docs/README.md): assembly and reference documentation.
 
 ## r1: SolderDemon numbering, the DUART in the CPLD column
 
@@ -41,17 +41,17 @@ The r1 board is **165 × 100 mm, four copper layers**. Generate the order packag
 KiCad 10 Python from the repository root:
 
 ```sh
-"/c/Program Files/KiCad/10.0/bin/python.exe" design/tools/export_r1.py
+"/c/Program Files/KiCad/10.0/bin/python.exe" tools/export_r1.py
 ```
 
 The script gates on zero ERC/DRC errors and zero unconnected pads, then replaces the files in
-`design/CAMOutputs/`. Send only `solderdemon_m68k-r1-factory.zip` to the PCB manufacturer;
+`manufacturing/`. Send only `solderdemon_m68k-r1-factory.zip` to the PCB manufacturer;
 it contains the four copper layers, both masks, both silkscreens, outline, and PTH/NPTH drills.
 For the first run, order **five bare PCBs** and populate one after checking the physical fit of
 the three PLCC-44 sockets, JTAG header orientation, and other chosen components. The CSV BOM
 is a design list; choose and verify supplier parts before buying components.
 
-The existing route was improved for `D6` and `A18` with `design/tools/optimize_r1_routes.py`.
+The existing route was improved for `D6` and `A18` with `tools/optimize_r1_routes.py`.
 That script accepts a shorter route only when it uses no more vias and KiCad DRC remains clean.
 Run the export script again if any routing or silkscreen changes are made.
 
@@ -66,7 +66,7 @@ segments are widened from 0.2 to 0.3 mm. The board and all schematic title block
 
 r2.14 replaces the four ATF22V10C GALs (IC2, IC3, IC5, IC6) with two ATF1502AS-10JU44 CPLDs in
 through-hole PLCC-44 sockets, programmed in circuit through the JTAG header **J9**. The logic and
-its check are described in [code/pld/cpld](../code/pld/cpld/README.md). Both sockets sit one above
+its check are described in [code/firmware/pld/cpld](../code/firmware/pld/cpld/README.md). Both sockets sit one above
 the other where the three glue GALs stood; the old IC2 gap between the CPU and the ROMs is 24.4 mm
 and a socket is 24.6 mm. J8, R31, R32 and R16 moved left to make room; the old GAL
 decoupling C23-C25 and the DUART's C27/C28 now stand in one column under J9, and C33 is new.
@@ -76,35 +76,36 @@ again from the r2.13 board in git. To rebuild it (KiCad 10, Docker for the fitte
 
 ```sh
 K="/c/Program Files/KiCad/10.0/bin"
-./code/pld/cpld/build.sh                  # 1. *.pld -> bin/*.jed, pins checked against the source
-python design/tools/verify_cpld.py        # 2. CPLDs against the r2.13 GAL fuse maps
-python design/tools/cpld_sch.py           # 3. CPLDs sheet of the schematic, from the PIN lines
-"$K/python.exe" design/tools/cpld_board.py   # 4. GALs out, sockets/J9/caps in, nets from the schematic
-"$K/python.exe" design/tools/cpld_route.py   # 5. routing with KiCadRoutingTools, planes, cleanup
-"$K/python.exe" design/tools/remove_access_headers.py # 6. remove J6/J7 and set revision 2.42
-"$K/python.exe" design/tools/cpld_route.py --finish     # 7. prune obsolete header branches
-"$K/python.exe" design/tools/repair_dangling.py        # 8. remove the remaining old stubs
-"$K/python.exe" design/tools/cpld_route.py             # 9. reconnect affected nets
-"$K/python.exe" design/tools/repair_dangling.py        # 10. repeat for residual stubs
-"$K/python.exe" design/tools/cpld_route.py             # 11. finish the reconnection
-"$K/python.exe" design/tools/polish_board.py           # 12. wider VCC bridges, clean silkscreen
-"$K/python.exe" design/tools/brand_project.py          # 13. apply SolderDemon m68k project branding
-python design/tools/strip_silk.py                      # 14. upstream badges off the silkscreen
-"$K/python.exe" design/tools/r1_layout.py              # 15. r1: longer board, DUART into the column
-"$K/python.exe" design/tools/cpld_route.py             # 16. route the DUART again
-"$K/python.exe" design/tools/trim_stubs.py             # 17. cut router overshoots back to their junctions
-python design/tools/make_logo.py 17                    # 18. SolderDemon logo footprint, as on the busboard
-"$K/python.exe" design/tools/r1_identity.py            # 19. CPU decoupling column, SolderDemon identity on the back
-"$K/python.exe" design/tools/cpld_route.py             # 20. route what the column tore up
-"$K/python.exe" design/tools/trim_stubs.py             # 21. and trim again
-"$K/python.exe" design/tools/ceramic_decouplers.py      # 22. 23 radial ceramic 100 nF, 5.08 mm pitch
-"$K/python.exe" design/tools/cpld_route.py             # 23. reconnect copper displaced by larger caps
-"$K/python.exe" design/tools/trim_stubs.py             # 24. trim router overshoots
-"$K/python.exe" design/tools/cpld_route.py             # 25. reconnect any net opened by trimming
-"$K/python.exe" design/tools/r1_tidy.py                 # 26. LED caps, jumper block, resistor labels, copper r1 mark
-"$K/python.exe" design/tools/cpld_route.py             # 27. reconnect the copper the tidy-up displaced
-"$K/python.exe" design/tools/trim_stubs.py             # 28. trim router overshoots
-"$K/kicad-cli.exe" pcb drc --schematic-parity design/kicad/solderdemon_m68k.kicad_pcb
+./code/firmware/pld/cpld/build.sh                  # 1. *.pld -> bin/*.jed, pins checked against the source
+python3 tools/verify_cpld.py       # 2. GAL decode/glue + address-based BOOT reference
+python tools/cpld_sch.py           # 3. CPLDs sheet of the schematic, from the PIN lines
+"$K/python.exe" tools/cpld_board.py   # 4. GALs out, sockets/J9/caps in, nets from the schematic
+"$K/python.exe" tools/cpld_route.py   # 5. routing with KiCadRoutingTools, planes, cleanup
+"$K/python.exe" tools/remove_access_headers.py # 6. remove J6/J7 and set revision 2.42
+"$K/python.exe" tools/cpld_route.py --finish     # 7. prune obsolete header branches
+"$K/python.exe" tools/repair_dangling.py        # 8. remove the remaining old stubs
+"$K/python.exe" tools/cpld_route.py             # 9. reconnect affected nets
+"$K/python.exe" tools/repair_dangling.py        # 10. repeat for residual stubs
+"$K/python.exe" tools/cpld_route.py             # 11. finish the reconnection
+"$K/python.exe" tools/polish_board.py           # 12. wider VCC bridges, clean silkscreen
+"$K/python.exe" tools/brand_project.py          # 13. apply SolderDemon m68k project branding
+python tools/strip_silk.py                      # 14. upstream badges off the silkscreen
+"$K/python.exe" tools/r1_layout.py              # 15. r1: longer board, DUART into the column
+"$K/python.exe" tools/cpld_route.py             # 16. route the DUART again
+"$K/python.exe" tools/trim_stubs.py             # 17. cut router overshoots back to their junctions
+python tools/make_logo.py 17                    # 18. SolderDemon logo footprint, as on the busboard
+"$K/python.exe" tools/r1_identity.py            # 19. CPU decoupling column, SolderDemon identity on the back
+"$K/python.exe" tools/cpld_route.py             # 20. route what the column tore up
+"$K/python.exe" tools/trim_stubs.py             # 21. and trim again
+"$K/python.exe" tools/ceramic_decouplers.py      # 22. 23 radial ceramic 100 nF, 5.08 mm pitch
+"$K/python.exe" tools/cpld_route.py             # 23. reconnect copper displaced by larger caps
+"$K/python.exe" tools/trim_stubs.py             # 24. trim router overshoots
+"$K/python.exe" tools/cpld_route.py             # 25. reconnect any net opened by trimming
+"$K/python.exe" tools/r1_tidy.py                 # 26. LED caps, jumper block, resistor labels, copper r1 mark
+"$K/python.exe" tools/cpld_route.py             # 27. reconnect the copper the tidy-up displaced
+"$K/python.exe" tools/trim_stubs.py             # 28. trim router overshoots
+"$K/python.exe" tools/r1_restore_trace_widths.py # 29. remove redundant wide power traces
+"$K/kicad-cli.exe" pcb drc --schematic-parity design/solderdemon_m68k.kicad_pcb
 ```
 
 The 5.08 mm capacitor conversion is the current r1 layout. It updates the footprint fields in
@@ -126,9 +127,14 @@ back under "M68K Computer r1", and "SolderDemon m68k" stands above the CPU on th
 on the back. The copper-to-edge rule in `solderdemon_m68k.kicad_pro` is 0.3 mm, so the inner
 GND and VCC planes stop 0.3 mm short of the routed outline.
 
+`r1_restore_trace_widths.py` removes the 2 mm VCC/GND overlays around J5, C21,
+C16 and H4 and the 1.6 mm VCC branch near C3. The 0.85 mm connections inherited
+from Rosco r2 remain. Run it after the last routing and stub trimming pass, then
+check the refilled board with DRC.
+
 Steps 5, 9 and 11 use [KiCadRoutingTools](https://github.com/drandyhaas/KiCadRoutingTools) from the
 workspace's `tools/KiCadRoutingTools` (set `KRT` to use another clone); its logs go to
-`design/kicad/routing/`. `design/tools/check_board.py` prints the DRC of any board with its
+`design/routing/`. `tools/check_board.py` prints the DRC of any board with its
 zones refilled.
 
 The hardware design is licensed under [CERN OHL v1.2](../LICENCE.hardware.txt). The documentation is attributed in the [repository README](../README.md).

@@ -1,0 +1,7 @@
+# Keep programming images and fitter evidence, including diagnostics.
+**/bin/*
+!**/bin/*.jed
+!**/bin/*.fit
+
+# Published production programming package.
+!release/*.zip

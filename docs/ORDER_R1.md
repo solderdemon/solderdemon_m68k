@@ -4,7 +4,7 @@ Order **five bare boards**; assemble and test one before populating the rest.
 
 | Order field | r1 design value |
 | --- | --- |
-| Fabrication upload | [`solderdemon_m68k-r1-factory.zip`](../design/CAMOutputs/solderdemon_m68k-r1-factory.zip) |
+| Fabrication upload | [`solderdemon_m68k-r1-factory.zip`](../manufacturing/solderdemon_m68k-r1-factory.zip) |
 | Finished outline | 165 × 100 mm |
 | Layers | 4: Top, Route2, Route15, Bottom |
 | Material and thickness | FR-4, 1.6 mm |
@@ -17,16 +17,16 @@ manufacturer's order form. Solder-mask colour and legend colour are also order-f
 the project renders show green mask with white legend. Check the rendered preview for all four
 copper layers, outline, masks, both legends and plated holes before submitting the order.
 
-The [ERC report](../design/CAMOutputs/solderdemon_m68k-r1-erc.rpt) has zero errors. The
-[DRC report](../design/CAMOutputs/solderdemon_m68k-r1-drc.rpt) has zero errors and zero
+The [ERC report](../manufacturing/solderdemon_m68k-r1-erc.rpt) has zero errors. The
+[DRC report](../manufacturing/solderdemon_m68k-r1-drc.rpt) has zero errors and zero
 unconnected pads; its warnings are library footprint and schematic field differences. The
-[drill report](../design/CAMOutputs/solderdemon_m68k-r1-drill-report.txt) lists 1,192 plated
+[drill report](../manufacturing/solderdemon_m68k-r1-drill-report.txt) lists 1,192 plated
 holes. The factory ZIP was regenerated after replacing all 23 through-hole 100 nF capacitors
 with 5.08 mm lead-pitch footprints, rerouting the board and pulling the inner GND and VCC
 planes back to 0.3 mm from the board edge (the `.kicad_pro` copper-to-edge rule is 0.3 mm).
 
-For the first assembly, use the [current BOM](../design/CAMOutputs/solderdemon_m68k-r1-bom.csv)
-and [schematic PDF](../design/CAMOutputs/solderdemon_m68k-r1-schematic.pdf). Verify the actual
+For the first assembly, use the [current BOM](../manufacturing/solderdemon_m68k-r1-bom.csv)
+and [schematic PDF](../manufacturing/solderdemon_m68k-r1-schematic.pdf). Verify the actual
 PLCC-44 socket bodies and key orientation for IC2, IC3 and IC4, and the J9 JTAG connector
 orientation before soldering. The BOM is a design list, not a supplier-verified shopping list.
 Confirm that the chosen 100 nF ceramic capacitors fit the 5.08 mm pitch and the
@@ -35,5 +35,5 @@ Confirm that the chosen 100 nF ceramic capacitors fit the 5.08 mm pitch and the
 If the PCB changes, regenerate all files with KiCad 10 Python:
 
 ```sh
-"/c/Program Files/KiCad/10.0/bin/python.exe" design/tools/export_r1.py
+"/c/Program Files/KiCad/10.0/bin/python.exe" tools/export_r1.py
 ```

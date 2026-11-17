@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name rosco_m68k)(type KiCad)(uri "$(KIPRJMOD)/rosco_m68k.pretty")(options "")(descr ""))
+  (lib (name "SolderDemonBrand")(type "KiCad")(uri "${KIPRJMOD}/../../tools/brand/SolderDemon.pretty")(options "")(descr "SolderDemon logo, tools/brand"))
+)

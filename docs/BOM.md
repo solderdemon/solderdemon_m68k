@@ -1,6 +1,6 @@
 # SolderDemon m68k bill of materials
 
-This table is based on the current r1 [KiCad CSV export](../design/kicad/solderdemon_m68k.csv). It has **30 part lines and 82 component placements**, excluding four mounting holes. The [order-package BOM](../design/CAMOutputs/solderdemon_m68k-r1-bom.csv) is generated from the same schematic. These are design BOMs, not verified purchasing lists; check the schematic, PCB footprints, and chosen supplier parts before buying components.
+This table is based on the current r1 [KiCad CSV export](../design/solderdemon_m68k.csv). It has **30 part lines and 82 component placements**, excluding four mounting holes. The [order-package BOM](../manufacturing/solderdemon_m68k-r1-bom.csv) is generated from the same schematic. These are design BOMs, not verified purchasing lists; check the schematic, PCB footprints, and chosen supplier parts before buying components.
 
 | Qty | References | Value / part | KiCad footprint |
 | ---: | --- | --- | --- |
@@ -38,7 +38,7 @@ This table is based on the current r1 [KiCad CSV export](../design/kicad/solderd
 ## Items outside the component count
 
 - The CSV also contains **four M3 mounting holes** and **six logo or compliance artwork objects**. They are PCB features, not parts to buy.
-- The bare PCB and any required programming of the ATF1502AS CPLDs (in circuit, over JTAG header J9) and Flash ROMs are not included as BOM lines. See the [PLD programming guide](../code/pld/README.md) for IC2 and IC3. Boards up to r2.13 use four ATF22V10C GALs (IC2, IC3, IC5, IC6) instead.
+- The bare PCB and any required programming of the ATF1502AS CPLDs (in circuit, over JTAG header J9) and Flash ROMs are not included as BOM lines. See the [PLD programming guide](../code/firmware/pld/README.md) for IC2 and IC3. Boards up to r2.13 use four ATF22V10C GALs (IC2, IC3, IC5, IC6) instead.
 - The original R2 packing list separately mentioned sockets for IC1 (DIL64, 1), IC4 (PLCC44, 1), IC7 (DIL16, 1), IC15 (DIL08, 1), and U1/U2/U3/U4 (DIL32, 4). From r2.14 IC2 and IC3 also sit in PLCC-44 through-hole sockets (2 more PLCC44 sockets). Treat these as assembly choices and verify fit against the PCB.
 - The older packing list differs from this KiCad CSV for some headers (including J8). This table follows the CSV; inspect the current PCB before ordering those headers.
 

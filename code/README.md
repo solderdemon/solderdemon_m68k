@@ -11,5 +11,5 @@ For new programs, start with the [rosco CLI and Docker guide](../docs/developmen
 | shared              | Shared code for both firmware and software     |
 | firmware            | Firmware for the board (ROM code)              |
 | software            | Software (system code & libraries, examples)   |
-| pld                 | [PLD sources and programming](pld/README.md)    |
+| firmware/pld        | [PLD sources and programming](firmware/pld/README.md)    |
 | starter_projects    | Older starter examples; use rosco CLI init for new projects |

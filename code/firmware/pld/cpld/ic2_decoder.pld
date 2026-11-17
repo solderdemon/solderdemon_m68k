@@ -1,0 +1,90 @@
+Name     DECODER;
+PartNo   ATF1502AS;
+Date     2026-11-17;
+Revision r1.1;
+Designer rosco_m68k;
+Company  rosco_m68k;
+Assembly rosco_m68k classic THT r2.14;
+Location IC2;
+Device   f1502ispplcc44;
+
+/*
+ * SolderDemon m68k r1, IC2 production firmware r1.1.
+ * Address decoder, DTACK, WR, interrupt-acknowledge decode and reset ROM overlay.
+ *
+ * At external RESET+HALT, BOOT clears and ROM supplies the vectors at address 0.
+ * The first normal read in $E00000-$EFFFFF sets BOOT at the rising edge of AS.
+ * Subsequent low-memory accesses select RAM. BOOT remains set until the next
+ * external RESET+HALT; a CPU RESET instruction alone does not change the map.
+ * The reset PC must point into high ROM, as the existing rosco ROM linker does.
+ * No AS-edge counter is used during vector reads.
+ *
+ * Normal map: RAM $000000-$0FFFFF; expansion $100000-$DFFFFF;
+ * ROM $E00000-$EFFFFF; IO $F00000-$FFFFFF. Levels and physical pins are unchanged.
+ * DTACK is open drain. RESET and HALT are inputs here, driven by IC3 and CPU.
+ * PIN declarations are the source of truth for PCB and schematic generators.
+ * JTAG remains enabled, chained TDI -> IC2 -> IC3 -> TDO on header J9.
+ */
+
+PROPERTY ATMEL {JTAG = ON};
+PROPERTY ATMEL {TDI_PULLUP = ON};
+PROPERTY ATMEL {TMS_PULLUP = ON};
+PROPERTY ATMEL {PREASSIGN = KEEP};
+
+/* ---- pins: chosen by design/tools/cpld_board.py --suggest, each signal on the pin nearest
+        to where its net already runs on the r2.13 board. 1, 5, 21, 24, 25, 31, 33, 36 are free. ---- */
+PIN 2  = FC0;                       /* dedicated input */
+PIN 4  = A20;
+PIN 6  = A21;
+PIN 8  = A22;
+PIN 9  = A23;
+PIN 11 = UDS;
+PIN 12 = EVENROMSEL;
+PIN 14 = LGEXP;                     /* JP4 fitted: expansion space answers its own DTACK */
+PIN 16 = ODDRAMSEL;
+PIN 17 = ODDROMSEL;
+PIN 18 = EVENRAMSEL;
+PIN 19 = EXPSEL;
+PIN 20 = WR;
+PIN 26 = RW;
+PIN 27 = RESET;                     /* read only, driven by IC3 and the CPU */
+PIN 28 = DTACK;                     /* open drain, 1k2 pull-up R21 */
+PIN 29 = LDS;
+PIN 34 = HALT;                      /* read only, driven by IC3 and the CPU */
+PIN 37 = HWRST;                     /* high while the 555 holds reset */
+PIN 39 = IOSEL;
+PIN 40 = FC2;
+PIN 41 = A19;
+PIN 43 = AS;                        /* GCLK1: latch high-ROM handoff at cycle end */
+PIN 44 = FC1;                       /* dedicated input */
+
+PINNODE = BOOT;                     /* 0 after reset: ROM answers for every address */
+
+/* ---- CPU space: ANYIACK is high when the cycle is NOT an interrupt acknowledge ---- */
+ANYIACK = !(!HWRST & FC2 & FC1 & FC0 & A19);
+
+low    = !A23 & !A22 & !A21 & !A20;             /* $000000-$0FFFFF */
+cyc    = ANYIACK & !AS;
+
+EVENRAMSEL = !(cyc & !UDS & BOOT & low);
+ODDRAMSEL  = !(cyc & !LDS & BOOT & low);
+EVENROMSEL = !(cyc & !UDS & ((A23 & A22 & A21 & !A20) # !BOOT));
+ODDROMSEL  = !(cyc & !LDS & ((A23 & A22 & A21 & !A20) # !BOOT));
+
+IOSEL      = !(ANYIACK & A23 & A22 & A21 & A20);   /* no AS here, as on r2.13 */
+EXPSEL     = !(cyc & ((A23 & !A21) # (!A23 & A22) # (!A23 & A20) # (!A22 & A21)));
+
+DTACK      = 'b'0;
+DTACK.oe   = ANYIACK & (!EVENROMSEL # !ODDROMSEL # !EVENRAMSEL # !ODDRAMSEL # (!LGEXP & !EXPSEL));
+
+WR         = !RW;
+
+/* Keep the ROM overlay throughout reset-vector
+   reads. End it after the first normal read in E00000-EFFFFF, where the
+   existing firmware is linked. Extra AS edges at low addresses do not
+   advance a counter. BOOT stays set until external RESET+HALT. */
+running = HALT # RESET;
+highrom = A23 & A22 & A21 & !A20;
+BOOT.d  = running & (BOOT # (ANYIACK & RW & highrom));
+BOOT.ck = AS;
+BOOT.ar = !HALT & !RESET;

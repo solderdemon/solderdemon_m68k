@@ -1,0 +1,19 @@
+{
+  "firmware": "SolderDemon m68k IC2 r1.1 + original IC3",
+  "date": "2026-11-17",
+  "images": {
+    "IC2": {
+      "file": "ic2_decoder.jed",
+      "fuse_count": 16808,
+      "sha256": "a03ac6c52f5764d0d5e631127aa1d029e3a082c7ab7c4b9ea2d41852dba275bc",
+      "expanded_fuse_sha256": "6e02d7434e96097cfba744513c6bac6b8871e40dde24d650d73a42fb2f8048bf"
+    },
+    "IC3": {
+      "file": "ic3_glue.jed",
+      "fuse_count": 16808,
+      "sha256": "bab3c4e9921fb9337a9d38df90b7324a00fc116049f91e59aa3b2a0583fa7018",
+      "expanded_fuse_sha256": "f5cebb8ca90743a72f866adfde11901225adcf282b595e09f3cf0b093d0017df"
+    }
+  },
+  "hardware_evidence": "Owner reported stable startup/reset with this exact fuse pair; physical AS waveform was not measured."
+}

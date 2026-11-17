@@ -1,6 +1,6 @@
 # Memory map
 
-This is the physical 24-bit address map of the through-hole mainboard after startup. The current [IC2 CPLD source](../code/pld/cpld/ic2_decoder.pld) defines the r1 board-level regions; the [firmware linker script](../code/firmware/rosco_m68k_firmware/rosco_m68k_firmware_1M.ld) and [program linker script](../code/software/libs/src/start_serial/link_scripts/hugerom_rosco_m68k_program.ld) use the same boundaries.
+This is the physical 24-bit address map of the through-hole mainboard after startup. The current [IC2 CPLD source](../code/firmware/pld/cpld/ic2_decoder.pld) defines the r1 board-level regions; the [firmware linker script](../code/firmware/rosco_m68k_firmware/rosco_m68k_firmware_1M.ld) and [program linker script](../code/software/libs/src/start_serial/link_scripts/hugerom_rosco_m68k_program.ld) use the same boundaries.
 
 | Address range | Size | Use |
 | --- | ---: | --- |
@@ -9,7 +9,7 @@ This is the physical 24-bit address map of the through-hole mainboard after star
 | `0xE00000`–`0xEFFFFF` | 1 MiB | Onboard ROM / Flash |
 | `0xF00000`–`0xFFFFFF` | 1 MiB | I/O address space |
 
-At reset, the address decoder temporarily selects ROM at low addresses so the CPU can fetch its initial vectors. After the startup cycles, RAM occupies `0x000000`–`0x0FFFFF`. The ROM image and firmware revision word are linked at `0xE00000` and `0xE00400` respectively. The DUART is addressed at odd byte addresses starting at `0xF00001`; see the [firmware register definitions](../code/firmware/rosco_m68k_firmware/include/machine.h). The I/O region is a decode window, not a promise that every address in it has a device.
+At reset, the address decoder temporarily selects ROM at low addresses so the CPU can fetch its initial vectors. IC2 firmware r1.1 ends this overlay after the first normal read in `0xE00000`–`0xEFFFFF`; RAM then occupies `0x000000`–`0x0FFFFF`. The reset PC must point into that high-ROM region. Simultaneous RESET and HALT re-arm the overlay; RESET alone does not. The ROM image and firmware revision word are linked at `0xE00000` and `0xE00400` respectively. The DUART is addressed at odd byte addresses starting at `0xF00001`; see the [firmware register definitions](../code/firmware/rosco_m68k_firmware/include/machine.h). The I/O region is a decode window, not a promise that every address in it has a device.
 
 ## Low RAM used by firmware
 
